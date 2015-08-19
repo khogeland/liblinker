@@ -7,6 +7,8 @@ import os
 import re
 import sys
 
+if len(sys.argv) < 3:
+    exit('Usage: liblinker IN_DIR OUT_DIR [--silent]')
 silent = True if len(sys.argv) == 4 and sys.argv[3] == '--silent' else False
 formats = ['mp3', 'flac', 'wav', 'wave', 'm4a', 'aac']
 in_dir, out_dir = os.path.normpath(sys.argv[1]), os.path.normpath(sys.argv[2])
@@ -149,8 +151,6 @@ def clean(string):
 
 def main():
     try:
-        if len(sys.argv) < 3:
-            exit('Usage: liblinker IN_DIR OUT_DIR [--silent]')
         uprint('INFO: Scanning music library at "%s"' % in_dir)
         walk(in_dir)
         uprint('INFO: Creating links at "%s"' % out_dir)
