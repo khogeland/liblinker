@@ -94,7 +94,8 @@ def tags_flac(name, infer=True):
         return None
     if not tags:
         return None, None
-    return tags['albumartist'][0] if 'albumartist' in tags.keys() else tags['artist'][0], tags['album'][0]
+    return tags['albumartist'][0] if 'albumartist' in tags.keys() else tags['artist'][0] if 'artist' in tags.keys() \
+        else None, tags['album'][0] if 'album' in tags.keys() else None
 
 
 def tags_wav(name, infer=True):
