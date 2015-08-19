@@ -72,7 +72,7 @@ def infer_album_artist(name):
 def tags_mp3(name, infer=True):
     try:
         tags = mp3.MP3(name).tags
-    except mp3.HeaderNotFoundError:
+    except (mp3.HeaderNotFoundError, mutagen.mp3.error):
         if infer:
             uprint('WARN: Corrupted or mistagged, inferring artist and album: %s ...' % name, end=' ')
             return infer_album_artist(name)
@@ -87,7 +87,7 @@ def tags_mp3(name, infer=True):
 def tags_flac(name, infer=True):
     try:
         tags = flac.FLAC(name)
-    except mutagen.flac.FLACNoHeaderError:
+    except (mutagen.flac.FLACNoHeaderError, mutagen.flac.error):
         if infer:
             uprint('WARN: Corrupted or mistagged, inferring artist and album: %s ...' % name, end=' ')
             return infer_album_artist(name)
@@ -113,7 +113,7 @@ def tags_wav(name, infer=True):
 def tags_mp4(name, infer=True):
     try:
         tags = mp4.MP4(name)
-    except mp4.MP4StreamInfoError:
+    except (mp4.MP4StreamInfoError, mutagen.mp4.error):
         if infer:
             uprint('WARN: Corrupted or mistagged, inferring artist and album: %s ...' % name, end=' ')
             return infer_album_artist(name)
