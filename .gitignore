@@ -44,3 +44,8 @@ Temporary Items
 
 # PyCharm files
 .idea
+
+# Setup files
+build/
+dist/
+*.egg-info
