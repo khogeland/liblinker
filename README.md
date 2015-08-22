@@ -1,6 +1,6 @@
 ## liblinker ##
 
-This utility creates an organized album -> artist -> track directory structure from a given folder containing music files. If you would like to have an organized library (or need one, if you're using something like Subsonic which relies on directory structure) but are unable to move the source files (e.g. you do not have permission or you are seeding them in a BitTorrent client), this is for you.
+This utility creates an organized album -> artist -> track directory structure from a given folder containing music files. If you would like to have an organized library (or need one, if you're using something like Subsonic which relies on directory structure) but are unable to move the source files (e.g. you do not have permission or you are seeding them in a BitTorrent client), this is for you. Can also be used to merge multiple music libraries.
  
 Supported formats: *MP3, FLAC, Wave, MP4 (M4A/AAC)*
 
