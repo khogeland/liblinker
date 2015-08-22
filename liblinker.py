@@ -1,15 +1,37 @@
 #! python3
-import mutagen
-import struct
 from mutagen import mp3, flac, mp4
 from tinytag import TinyTag
+import mutagen
 import os
 import re
+import shutil
+import struct
 import sys
 
 if len(sys.argv) < 3:
-    exit('Usage: liblinker IN_DIR OUT_DIR [--silent]')
-silent = True if len(sys.argv) == 4 and sys.argv[3] == '--silent' else False
+    exit('Usage: liblinker IN_DIR OUT_DIR [--silent] [--mode=link]\n\n'
+         '--mode=\n\tlink\tCreates links to the source files in the target directory. This is the default behavior.\n'
+         '\tcopy\tCopies source files to the target directory, keeping original files.\n'
+         '\tmove\tMoves source files from the source directory to the target directory.\n\n'
+         '--silent\tAll output will be suppressed, except for error messages.')
+
+mode = 'link'
+
+if len(sys.argv) > 3:
+    opts = sys.argv[3:]
+    for opt in opts:
+        opt = opt.lower()
+        if opt == '--silent':
+            silent = True
+        elif opt.startswith('--mode='):
+            a_mode = opt[7:]
+            if a_mode not in ['copy', 'move', 'link']:
+                exit('Unrecognized mode "%s"' % a_mode)
+            else:
+                mode = a_mode
+        else:
+            exit('Unrecognized flag "%s"' % opt)
+
 formats = ['mp3', 'flac', 'wav', 'wave', 'm4a', 'aac']
 in_dir, out_dir = os.path.normpath(sys.argv[1]), os.path.normpath(sys.argv[2])
 bad_files = False
@@ -141,9 +163,17 @@ def make_links():
         new_path += slash + clean(tail)
         if not os.path.exists(new_path):
             try:
-                os.link(path, new_path)
+                if mode == 'copy':
+                    shutil.copy(path, new_path)
+                elif mode == 'move':
+                    shutil.move(path, new_path)
+                else:
+                    os.link(path, new_path)
             except OSError:
-                os.symlink(path, new_path)
+                if mode == 'link':
+                    os.symlink(path, new_path)
+                else:
+                    raise
 
 
 def clean(string):
