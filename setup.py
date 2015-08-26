@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='liblinker',
-      version='1.1.0',
+      version='1.1.1',
       description='Organize your music library without altering the original directory.',
       url='https://github.com/btym/liblinker',
       author='Kevin Hogeland',

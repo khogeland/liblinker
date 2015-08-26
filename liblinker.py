@@ -16,6 +16,7 @@ if len(sys.argv) < 3:
          '--silent\tAll output will be suppressed, except for error messages.')
 
 mode = 'link'
+silent = False
 
 if len(sys.argv) > 3:
     opts = sys.argv[3:]
@@ -102,8 +103,11 @@ def tags_mp3(name, infer=True):
     if not tags:
         return None, None
     return \
-        tags['TPE1'].text[0] if 'TPE1' in tags.keys() else tags['TOPE'] if 'TOPE' in tags.keys() else None,\
-        tags['TALB'].text[0] if 'TALB' in tags.keys() else tags['TOAL'] if 'TOAL' in tags.keys() else None
+        tags['TPE2'].text[0] if 'TPE2' in tags.keys() else \
+        tags['TPE1'].text[0] if 'TPE1' in tags.keys() else \
+        tags['TOPE'].text[0] if 'TOPE' in tags.keys() else None,\
+        tags['TALB'].text[0] if 'TALB' in tags.keys() else\
+        tags['TOAL'].text[0] if 'TOAL' in tags.keys() else None
 
 
 def tags_flac(name, infer=True):
