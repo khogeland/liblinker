@@ -1,14 +1,22 @@
 ## liblinker ##
 
-This utility creates an organized album -> artist -> track directory structure from a given folder containing music files. If you would like to have an organized library (or need one, if you're using something like Subsonic which relies on directory structure) but are unable to move the source files (e.g. you do not have permission or you are seeding them in a BitTorrent client), this is for you. Can also be used to merge multiple music libraries.
+This utility creates an organized album -> artist -> track directory structure from a given folder containing music files. If you…
 
-Also supports moving or copying instead of linking, if you're into that sort of thing...
+-  Want to organize your massive torrent folder while keeping everything
+   seeding
+-  Want to merge multiple music folders into one location
+-  Don’t have permission to move the original files
+-  Want to keep iTunes files or other junky application files out of
+   your original library (use liblinker -> point iTunes/whatever at the
+   output directory)
+
+This is for you.
+
+Hard links are used when possible, otherwise symlinks are used. Also supports moving or copying instead of linking, if you're into that sort of thing...
  
 Supported formats: *MP3, FLAC, Wave, MP4 (M4A/AAC)*
 
 Requires Python 3.4+
-
-Hard links are used when possible, otherwise symlinks are used.
  
 ### Installation ###
 
@@ -25,7 +33,7 @@ pip install git+https://github.com/btym/liblinker
 ### Usage ###
 
 ```
-Usage: liblinker IN_DIR OUT_DIR [--silent] [--mode=link]
+liblinker IN_DIR OUT_DIR [--silent] [--mode=link]
 
 --mode=
         link    Creates links to the source files in the target directory. This is the default behavior.
